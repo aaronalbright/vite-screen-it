@@ -19,10 +19,7 @@ function App() {
 
   const addNewMovie = (newMovie, isEdit = false) => {
     if (isEdit) {
-      const newMovies = [...movies];
-      const movieIndex = newMovies.findIndex(d => d.id == newMovie.id)
-      newMovies[movieIndex] = newMovie;
-      setMovies(newMovies);
+      setMovies(movies.map(d => d.id == newMovie.id ? newMovie : d));
       setEditFlag({flag: false, movie: {}})
     } else {
       console.log("Edit is false");
