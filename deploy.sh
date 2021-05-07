@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run build --base /vite-screen-it/
+npm run build
 
 # navigate into the build output directory
 cd dist
@@ -18,6 +18,6 @@ git commit -m 'deploy'
 
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-# git push -f git@github.com:aaronalbright/vite-screen-it.git master:gh-pages
+git push -f git@github.com:aaronalbright/vite-screen-it.git master:gh-pages
 
 cd -
