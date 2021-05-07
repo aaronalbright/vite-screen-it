@@ -90,7 +90,7 @@ export default function MovieInfo(props) {
           name="title"
           type="text"
           value={title}
-          placeholder="Title of the movie"
+          placeholder="Name of the movie"
           onChange={e => setTitle(e.target.value)}
         />
       </div>
