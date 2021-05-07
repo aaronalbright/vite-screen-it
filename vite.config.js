@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { build, defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import postcssNesting from 'postcss-nesting';
 
@@ -9,5 +9,8 @@ export default defineConfig({
     postcss: {
       plugins: [postcssNesting]
     }
+  },
+  build: {
+    assetsDir: ''
   }
 })
