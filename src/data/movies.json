@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Lord of the Rings: The Two Towers",
+        "cat": "Action/Adventure",
+        "rating": 5
+    },
+    {
+        "title": "Zoolander",
+        "cat": "Comedy",
+        "rating": 5
+    },
+    {
+        "title": "Jurassic Park",
+        "cat": "Action/Adventure",
+        "rating": 5
+    },
+    {
+        "title": "Tropic Thunder",
+        "cat": "Comedy",
+        "rating": 4
+    },
+    {
+        "title": "Shutter Island",
+        "cat": "Thriller",
+        "rating": 4
+    }
+]
