@@ -1,0 +1,12 @@
+{
+    "emmet.includeLanguages": {
+        "postcss": "scss",
+    },
+    "emmet.syntaxProfiles": {
+        "postcss": "scss"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "files.associations": {
+        "*.css": "scss"
+    }
+}

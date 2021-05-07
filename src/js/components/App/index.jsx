@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import movieData from '../../../data/movies.json';
 import { v4 as uuid } from 'uuid';
 
@@ -14,9 +14,20 @@ for (const movie of movieData) {
 
 function App() {
   const [movies, setMovies] = useState(movieData);
+  const [editFlag, setEditFlag] = useState({flag: false, movie: {}});
 
-  const addNewMovie = newMovie => {
-    setMovies([newMovie, ...movies]);
+
+  const addNewMovie = (newMovie, isEdit = false) => {
+    if (isEdit) {
+      const newMovies = [...movies];
+      const movieIndex = newMovies.findIndex(d => d.id == newMovie.id)
+      newMovies[movieIndex] = newMovie;
+      setMovies(newMovies);
+      setEditFlag({flag: false, movie: {}})
+    } else {
+      console.log("Edit is false");
+      setMovies([newMovie, ...movies]);
+    }
   };
   
   // Removies movie by uuid
@@ -24,10 +35,19 @@ function App() {
     setMovies(movies.filter(d => d.id !== id));
   };
 
+  const handleEdit = (bool, movie) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+    setEditFlag({flag: bool, movie});
+  }
+
   return (
     <>
-      <MovieInfo sendEntry={d => addNewMovie(d)} />
-      <MovieList movies={movies} onRemove={handleRemove} />
+      <MovieInfo editFlag={editFlag} sendEntry={addNewMovie} />
+      <MovieList movies={movies} onRemove={handleRemove} onEdit={handleEdit}/>
     </>
   );
 }

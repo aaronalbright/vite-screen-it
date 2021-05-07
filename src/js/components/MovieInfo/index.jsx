@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {v4 as uuid } from 'uuid';
 import star from '../../../assets/star.svg';
 import starFilled from '../../../assets/star-filled.svg';
+
+import './MovieInfo.css';
 
 const categories = [
   'Action/Adventure',
@@ -17,10 +19,22 @@ const categories = [
   'Documentary',
 ];
 
-export default function MovieList(props) {
+export default function MovieInfo(props) {
   const [title, setTitle] = useState('');
   const [cat, setCat] = useState('');
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    if (props.editFlag.flag == true) {
+      setTitle(props.editFlag.movie.title)
+      setCat(props.editFlag.movie.cat)
+      setRating(props.editFlag.movie.rating)
+    } else {
+      setTitle('')
+      setCat('')
+      setRating(0)
+    }
+  }, [props.editFlag])
 
   const createOptions = () =>
     categories.map((d, i) => {
@@ -40,21 +54,35 @@ export default function MovieList(props) {
   };
 
   const hanldeButton = () => {
-    if (title == '' || cat == "" || rating == 0) {
-      alert("Please completely fill in the movie information")
-      return
+    if (props.editFlag.flag == false) {
+      if (title == '' || cat == "" || rating == 0) {
+        alert("Please completely fill in the movie information")
+        return
+      }
+      const movieEntry = {
+        title,
+        cat,
+        rating,
+        id: uuid()
+      };
+      props.sendEntry(movieEntry);
+      setTitle('')
+      setCat('')
+      setRating(0)
+    } else {
+      const movieEntry = {
+        title,
+        cat,
+        rating,
+        id: props.editFlag.movie.id
+      };
+      props.sendEntry(movieEntry, true);
     }
-    const movieEntry = {
-      title,
-      cat,
-      rating,
-      id: uuid()
-    };
-    props.sendEntry(movieEntry);
+    
   };
 
   return (
-    <div className="movie-info">
+    <div className={`movie-info ${props.editFlag.flag ? 'movie-info--edit' : ''}`}>
       <div className="info__title">
         <label htmlFor="movieTitle">Name</label>
         <input
@@ -113,7 +141,9 @@ export default function MovieList(props) {
           })}
         </div>
       </div>
-      <button className="info__button" onClick={hanldeButton}>Add Movie</button>
+      <button className={`info__button ${props.editFlag.flag ? 'info__button--edit' : ''}`} onClick={hanldeButton}>
+        {props.editFlag.flag ? "Update Movie" : "Add Movie"}
+      </button>
     </div>
   );
 }
